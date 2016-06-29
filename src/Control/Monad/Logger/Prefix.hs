@@ -60,12 +60,12 @@ import           Data.Text                   (Text)
 -- [Debug] [foo] bar
 prefixLogs :: MonadLogger m => Text -> LogPrefixT m a -> m a
 prefixLogs prefix =
-    flip runReaderT (mconcat ["[", prefix, "] "]) . runLogPrefixT
+    flip runReaderT (toLogStr $! mconcat ["[", prefix, "] "]) . runLogPrefixT
 
 -- | 'LogPrefixT' is a monad transformer that prepends a bit of text to each
 -- logging action in the current 'MonadLogger' context. The internals are
 -- currently implemented as a wrapper around 'ReaderT' 'Text'.
-newtype LogPrefixT m a = LogPrefixT { runLogPrefixT :: ReaderT Text m a }
+newtype LogPrefixT m a = LogPrefixT { runLogPrefixT :: ReaderT LogStr m a }
     deriving
         (Functor, Applicative, Monad, MonadTrans, MonadIO, MonadThrow, MonadCatch)
 
