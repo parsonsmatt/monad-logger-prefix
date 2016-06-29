@@ -3,8 +3,9 @@ version:        0.1.0
 synopsis:       Add prefixes to your monad-logger output
 description:    See README.md
 category:       System
-homepage:       https://github.com/githubuser/monad-logger-prefix#readme
-bug-reports:    https://github.com/githubuser/monad-logger-prefix/issues
+homepage:       https://github.com/sellerlabs/monad-logger-prefix#readme
+bug-reports:    https://github.com/sellerlabs/monad-logger-prefix/issues
+author:         Matthew Parsons
 maintainer:     Matthew Parsons
 license:        Apache
 license-file:   LICENSE.md
@@ -15,12 +16,11 @@ copyright:      2016 Seller Labs
 extra-source-files:
     CHANGELOG.md
     LICENSE.md
-    package.yaml
     README.md
 
 source-repository head
     type: git
-    location: https://github.com/githubuser/monad-logger-prefix
+    location: https://github.com/sellerlabs/monad-logger-prefix
 
 library
     hs-source-dirs:
