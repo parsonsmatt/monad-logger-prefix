@@ -28,14 +28,14 @@ library
     ghc-options: 
         -Wall
     build-depends:
-        base         >= 4.8 && < 4.9
-      , monad-logger
-      , transformers
-      , exceptions
-      , mtl
-      , monad-control
-      , transformers-base
-      , text
+        base              >= 4.8     && < 4.9
+      , monad-logger      >= 0.3.14  && < 0.4.0
+      , transformers      >= 0.4.2.0 && < 0.4.3.0
+      , exceptions        >= 0.8.0   && < 0.9.0
+      , mtl               >= 2.2     && < 2.3
+      , monad-control     >= 1.0     && < 1.1
+      , transformers-base >= 0.4     && < 0.5
+      , text              >= 1.1     && < 1.3
     exposed-modules:
         Control.Monad.Logger.Prefix
     default-language: 
