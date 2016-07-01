@@ -47,8 +47,9 @@ import           Control.Monad.Logger
 import           Control.Monad.Reader
 import           Control.Monad.State
 import           Control.Monad.Trans.Control
-import           Data.Monoid
-import           Data.Text                   (Text)
+import           Control.Monad.Trans.Resource
+import           Control.Monad.Writer
+import           Data.Text                    (Text)
 
 
 -- | This function runs the underlying 'MonadLogger' instance with a prefix
@@ -90,6 +91,14 @@ instance MonadReader r m => MonadReader r (LogPrefixT m) where
 instance MonadState s m => MonadState s (LogPrefixT m) where
     get = lift get
     put = lift . put
+
+instance MonadWriter w m => MonadWriter w (LogPrefixT m) where
+    tell = lift . tell
+    listen = mapLogPrefixT listen
+    pass = mapLogPrefixT pass
+
+instance MonadResource m => MonadResource (LogPrefixT m) where
+    liftResourceT = lift . liftResourceT
 
 -- | Maps a given function over the original
 mapLogPrefixT :: (m a -> n b) -> LogPrefixT m a -> LogPrefixT n b
