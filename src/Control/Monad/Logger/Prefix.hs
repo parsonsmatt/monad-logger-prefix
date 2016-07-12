@@ -31,7 +31,6 @@ someLoggingFunction = do
 {-# LANGUAGE FunctionalDependencies     #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
 {-# LANGUAGE OverloadedStrings          #-}
-{-# LANGUAGE TemplateHaskell            #-}
 {-# LANGUAGE TypeFamilies               #-}
 {-# LANGUAGE UndecidableInstances       #-}
 
@@ -68,7 +67,7 @@ prefixLogs prefix =
 -- currently implemented as a wrapper around 'ReaderT' 'Text'.
 newtype LogPrefixT m a = LogPrefixT { runLogPrefixT :: ReaderT LogStr m a }
     deriving
-        (Functor, Applicative, Monad, MonadTrans, MonadIO, MonadThrow, MonadCatch)
+        (Functor, Applicative, Monad, MonadTrans, MonadIO, MonadThrow, MonadCatch, MonadMask)
 
 instance MonadLogger m => MonadLogger (LogPrefixT m) where
     monadLoggerLog loc src lvl msg = LogPrefixT $ ReaderT $ \prefix ->

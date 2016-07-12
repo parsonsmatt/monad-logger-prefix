@@ -1,5 +1,5 @@
 name:           monad-logger-prefix
-version:        0.1.1
+version:        0.1.2
 synopsis:       Add prefixes to your monad-logger output
 description:    See README.md
 category:       System
@@ -50,6 +50,7 @@ benchmark monad-logger-prefix-benchmarks
     ghc-options: -Wall -rtsopts -threaded -with-rtsopts=-N
     build-depends:
         base
+      , monad-logger
       , monad-logger-prefix
       , criterion
     default-language: Haskell2010
