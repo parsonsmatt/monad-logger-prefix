@@ -28,7 +28,7 @@ library
     ghc-options: 
         -Wall
     build-depends:
-        base              >= 4.8     && < 4.9
+        base              >= 4.6     && < 5.0
       , monad-logger      >= 0.3.14  && < 0.4.0
       , transformers      >= 0.4.2.0 && < 0.4.3.0
       , exceptions        >= 0.8.0   && < 0.9.0
