@@ -40,6 +40,7 @@ module Control.Monad.Logger.Prefix
     , prefixLogs
     ) where
 
+import           Control.Applicative
 import           Control.Monad.Base
 import           Control.Monad.Catch
 import           Control.Monad.Logger
@@ -49,6 +50,8 @@ import           Control.Monad.Trans.Control
 import           Control.Monad.Trans.Resource
 import           Control.Monad.Writer
 import           Data.Text                    (Text)
+
+import           Prelude
 
 
 -- | This function runs the underlying 'MonadLogger' instance with a prefix
