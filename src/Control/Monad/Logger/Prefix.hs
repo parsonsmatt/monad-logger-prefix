@@ -60,7 +60,7 @@ import           Prelude
 -- >>> :set -XOverloadedStrings
 -- >>> let l = logDebugN "bar"
 -- >>> runStdoutLoggingT (prefixLogs "foo" (logDebugN "bar"))
--- [Debug] [foo] bar
+-- [Debug] [foo] bar ...
 prefixLogs :: MonadLogger m => Text -> LogPrefixT m a -> m a
 prefixLogs prefix =
     flip runReaderT (toLogStr $! mconcat ["[", prefix, "] "]) . runLogPrefixT
