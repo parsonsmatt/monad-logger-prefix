@@ -62,7 +62,7 @@ import           Prelude
 -- >>> runStdoutLoggingT (prefixLogs "foo" (logDebugN "bar\n"))
 -- [Debug] [foo] bar
 -- ...
-prefixLogs :: MonadLogger m => Text -> LogPrefixT m a -> m a
+prefixLogs :: Text -> LogPrefixT m a -> m a
 prefixLogs prefix =
     flip runReaderT (toLogStr $! mconcat ["[", prefix, "] "]) . runLogPrefixT
 
