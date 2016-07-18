@@ -66,6 +66,8 @@ prefixLogs :: MonadLogger m => Text -> LogPrefixT m a -> m a
 prefixLogs prefix =
     flip runReaderT (toLogStr $! mconcat ["[", prefix, "] "]) . runLogPrefixT
 
+infixr 5 `prefixLogs`
+
 -- | 'LogPrefixT' is a monad transformer that prepends a bit of text to each
 -- logging action in the current 'MonadLogger' context. The internals are
 -- currently implemented as a wrapper around 'ReaderT' 'Text'.
