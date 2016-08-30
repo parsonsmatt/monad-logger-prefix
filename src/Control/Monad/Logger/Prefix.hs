@@ -38,12 +38,13 @@ module Control.Monad.Logger.Prefix
     ( -- * LogPrefixT
       LogPrefixT()
     , prefixLogs
+    , module Export
     ) where
 
 import           Control.Applicative
 import           Control.Monad.Base
 import           Control.Monad.Catch
-import           Control.Monad.Logger
+import           Control.Monad.Logger as Export
 import           Control.Monad.Reader
 import           Control.Monad.State
 import           Control.Monad.Trans.Control

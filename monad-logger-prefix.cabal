@@ -1,5 +1,5 @@
 name:           monad-logger-prefix
-version:        0.1.4
+version:        0.1.5
 synopsis:       Add prefixes to your monad-logger output
 description:    Add prefixes to your monad-logger output
 category:       System
