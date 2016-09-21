@@ -44,6 +44,7 @@ module Control.Monad.Logger.Prefix
 import           Control.Applicative
 import           Control.Monad.Base
 import           Control.Monad.Catch
+import           Control.Monad.Except
 import           Control.Monad.Logger as Export
 import           Control.Monad.Reader
 import           Control.Monad.State
@@ -71,10 +72,11 @@ infixr 5 `prefixLogs`
 
 -- | 'LogPrefixT' is a monad transformer that prepends a bit of text to each
 -- logging action in the current 'MonadLogger' context. The internals are
--- currently implemented as a wrapper around 'ReaderT' 'Text'.
+-- currently implemented as a wrapper around 'ReaderT' 'LogStr'.
 newtype LogPrefixT m a = LogPrefixT { runLogPrefixT :: ReaderT LogStr m a }
     deriving
         (Functor, Applicative, Monad, MonadTrans, MonadIO, MonadThrow, MonadCatch, MonadMask)
+
 
 instance MonadLogger m => MonadLogger (LogPrefixT m) where
     monadLoggerLog loc src lvl msg = LogPrefixT $ ReaderT $ \prefix ->
@@ -98,6 +100,14 @@ instance MonadState s m => MonadState s (LogPrefixT m) where
     get = lift get
     put = lift . put
 
+instance MonadError e m => MonadError e (LogPrefixT m) where
+    throwError = lift . throwError
+    catchError err k = LogPrefixT
+        $ ReaderT
+        $ \prfx -> runReaderT (runLogPrefixT err) prfx
+            `catchError`
+                \e -> runReaderT (runLogPrefixT (k e)) prfx
+
 instance MonadWriter w m => MonadWriter w (LogPrefixT m) where
     tell = lift . tell
     listen = mapLogPrefixT listen
@@ -106,7 +116,6 @@ instance MonadWriter w m => MonadWriter w (LogPrefixT m) where
 instance MonadResource m => MonadResource (LogPrefixT m) where
     liftResourceT = lift . liftResourceT
 
--- | Maps a given function over the original
 mapLogPrefixT :: (m a -> n b) -> LogPrefixT m a -> LogPrefixT n b
 mapLogPrefixT f rfn =
     LogPrefixT . ReaderT $ f . runReaderT (runLogPrefixT rfn)
