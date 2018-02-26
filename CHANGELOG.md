@@ -1,7 +1,9 @@
 # Change log
 
-monad-logger-prefix uses [Semantic Versioning][].
-The change log is available through the [releases on GitHub][].
+## 0.1.8
 
-[Semantic Versioning]: http://semver.org/spec/v2.0.0.html
-[releases on GitHub]: https://github.com/sellerlabs/monad-logger-prefix/releases
+- Relaxed upper bound on `exceptions` from 0.9 to 0.10
+
+## 0.1.7
+
+- Relaxed upper bound on `conduit`
