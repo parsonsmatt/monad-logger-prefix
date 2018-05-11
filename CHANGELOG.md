@@ -1,6 +1,6 @@
 # Change log
 
-## 0.1.9
+## 0.1.10
 
 - Relaxed upper bound on `exceptions` from 0.10 to 0.11
 
