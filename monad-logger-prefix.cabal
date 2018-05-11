@@ -1,7 +1,7 @@
 name:           monad-logger-prefix
 version:        0.1.10
 synopsis:       Add prefixes to your monad-logger output
-description:    Add prefixes to your monad-logger output
+description:    Add prefixes to your monad-logger output.
 category:       System
 homepage:       https://github.com/parsonsmatt/monad-logger-prefix#readme
 bug-reports:    https://github.com/parsonsmatt/monad-logger-prefix/issues
