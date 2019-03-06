@@ -1,5 +1,9 @@
 # Change log
 
+# 0.1.11
+
+- Relaxed upper bound on `transformers`
+
 ## 0.1.10
 
 - Relaxed upper bound on `exceptions` from 0.10 to 0.11
