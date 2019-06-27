@@ -51,6 +51,7 @@ import           Control.Monad.State
 import           Control.Monad.Trans.Control
 import           Control.Monad.Trans.Resource
 import           Control.Monad.Writer
+import           Control.Monad.IO.Unlift
 import           Data.Text                    (Text)
 
 import           Prelude
@@ -115,6 +116,17 @@ instance MonadWriter w m => MonadWriter w (LogPrefixT m) where
 
 instance MonadResource m => MonadResource (LogPrefixT m) where
     liftResourceT = lift . liftResourceT
+
+instance MonadUnliftIO m => MonadUnliftIO (LogPrefixT m) where
+    {-# INLINE askUnliftIO #-}
+    askUnliftIO = LogPrefixT. ReaderT $ \r ->
+                  withUnliftIO $ \u ->
+                  return (UnliftIO (unliftIO u . flip runReaderT r . runLogPrefixT))
+    {-# INLINE withRunInIO #-}
+    withRunInIO inner =
+      LogPrefixT. ReaderT $ \r ->
+      withRunInIO $ \run ->
+      inner (run . flip runReaderT r . runLogPrefixT)
 
 mapLogPrefixT :: (m a -> n b) -> LogPrefixT m a -> LogPrefixT n b
 mapLogPrefixT f rfn =
