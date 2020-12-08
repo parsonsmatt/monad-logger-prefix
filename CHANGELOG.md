@@ -1,5 +1,9 @@
 # Change log
 
+# 0.1.12
+
+- Add support for `unliftio-core >= 0.2.0`
+
 # 0.1.11
 
 - Relaxed upper bound on `transformers`

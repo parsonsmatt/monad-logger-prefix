@@ -27,6 +27,7 @@ someLoggingFunction = do
 @
 -}
 
+{-# language CPP #-}
 {-# LANGUAGE FlexibleInstances          #-}
 {-# LANGUAGE FunctionalDependencies     #-}
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
@@ -118,10 +119,13 @@ instance MonadResource m => MonadResource (LogPrefixT m) where
     liftResourceT = lift . liftResourceT
 
 instance MonadUnliftIO m => MonadUnliftIO (LogPrefixT m) where
+#if MIN_VERSION_unliftio_core(0,2,0)
+#else
     {-# INLINE askUnliftIO #-}
     askUnliftIO = LogPrefixT. ReaderT $ \r ->
                   withUnliftIO $ \u ->
                   return (UnliftIO (unliftIO u . flip runReaderT r . runLogPrefixT))
+#endif
     {-# INLINE withRunInIO #-}
     withRunInIO inner =
       LogPrefixT. ReaderT $ \r ->
